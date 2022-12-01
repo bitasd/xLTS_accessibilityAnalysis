@@ -18,8 +18,9 @@ if __name__ == "__main__":
     # street network + paths with dual carriageways merged at intersections
     streets = geopandas.read_file(
         # "C:\\Users\\bitas\\folders\\Research\\Montreal\\codes\\x_accessiblity\\data\\test\\merged_sample.gpkg"
-        "C:\\Users\\bitas\\folders\\Research\\Montreal\\codes\\x_accessiblity\\data\\merged_at_X\\merge_1.gpkg"
+        # "C:\\Users\\bitas\\folders\\Research\\Montreal\\codes\\x_accessiblity\\data\\merged_at_X\\merge_1.gpkg"
         # "C:\\Users\\bitas\\folders\\Research\\Montreal\\codes\\x_accessiblity\\data\\accessibility_input\\base_mergedNet2.gpkg"
+        "C:\\Users\\bitas\\folders\\Research\\Montreal\\codes\\x_accessiblity\\data\\accessibility_input\\west_island4.gpkg"
     )
 
     print("number of lines: ", len(streets))
@@ -51,7 +52,7 @@ if __name__ == "__main__":
     G = gdf_to_nx(streets)
 
 
-    #Assigning a uniq id to all edges in the unidirectional G network and creating a Map between roads geometry and
+    # Assigning a uniq id to all edges in the unidirectional G network and creating a Map between roads geometry and
     # id_trc to the uniq_id
     geo_hashmap, id_hashmap = dict(), dict()
     i = 0
@@ -80,11 +81,13 @@ if __name__ == "__main__":
     # net_2.calc_access('link_access_all_dup_p2')
 
     # third origin point on Salaberry
-    source_coords_3 = [(u, v) for u, v, k in G__.edges(data=True) if (k['f_ID_TRC'] == 4013148 and  k['TYPE_VOIE']==7)][-1][0]  # Path on Salaberry
+    # source_coords_3 = [(u, v) for u, v, k in G__.edges(data=True) if (k['f_ID_TRC'] == 4013148 and  k['TYPE_VOIE']==7)][-1][0]  # Path on Salaberry
+    # net_3 = NetworkPath(G__, source_coords_3, id_hashmap, geo_hashmap)
+    # net_3.calc_access('link_access_all_dup_p3')
+
+    source_coords_3 = [(u, v) for u, v, k in G__.edges(data=True) if k['f_ID_TRC'] == 4013525 ][0][-1]  # Path on Salaberry
     net_3 = NetworkPath(G__, source_coords_3, id_hashmap, geo_hashmap)
     net_3.calc_access('link_access_all_dup_p3')
-
-
 
     # print("Computing Shortest Path LTS 1...")
     # scenario_name = "lts1"

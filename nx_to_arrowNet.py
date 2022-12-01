@@ -22,7 +22,7 @@ def diGraph_to_arrowNet(G: nx.MultiDiGraph, xlts_gdf: geopandas.GeoDataFrame) ->
             attr_in = inl[3]
             from_id = attr_in['ID_TRC_int']
             from_unid = attr_in['uniq_id']
-            attr_r = attr_in.copy()
+            attr_r = attr_in.copy()      # using the ingoing link's attributes
 
             for outl in out_edges:
 
@@ -33,11 +33,7 @@ def diGraph_to_arrowNet(G: nx.MultiDiGraph, xlts_gdf: geopandas.GeoDataFrame) ->
                 if from_id != to_id:
 
                     attr_r.update({'f_ID_TRC': attr_in['ID_TRC_int'], 't_ID_TRC': attr_out['ID_TRC_int'],
-                                   # 'lts_final': max(attr_in['lts_final'], attr_out['lts_final']),
 
-                                   # 'length': (attr_in['length']+ attr_out['length'])/2
-
-                                   # , 'geometry': make_route_line([infirst, outlast])
                                    })
                     # Checking if the relation exists in the simple crossings layer (xLTS)
                     crossing_row, jid, jdf = crossing_lookup(attr_r, xlts_gdf)
